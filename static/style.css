@@ -1,0 +1,114 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #f7f9fc;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid #444;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #111;
+}
+
+.contact {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+section {
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: #1e4a7a;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+h3 {
+    margin: 10px 0 4px;
+    font-size: 18px;
+}
+
+.date {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+button {
+    background: #1e4a7a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #163d63;
+}
+/* ----- Print / PDF Styles ----- */
+@media print {
+  body {
+    margin: 40px;
+    font-family: 'Helvetica', sans-serif;
+  }
+
+  .resume-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1, h2, h3 {
+    text-align: left;
+    margin-bottom: 8px;
+  }
+
+  p, li, span {
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 2px solid #0d47a1;
+    margin: 10px 0;
+  }
+
+  /* Make sure contact info fits in one line */
+  .contact-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    display: none; /* Hide download button in PDF */
+  }
+  @page {
+  margin: 1in;
+}
+
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRST LAST - Resume</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,.1);
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+        .contact {
+            font-size: .95em;
+            margin-top: 8px;
+        }
+        .contact a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        section {
+            margin-bottom: 25px;
+        }
+        h2 {
+            font-size: 1.35em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            color: #222;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin: 12px 0 6px;
+        }
+        .date {
+            float: right;
+            font-weight: normal;
+            color: #555;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .skills {
+            column-count: 2;
+            column-gap: 30px;
+        }
+        .skills li {
+            break-inside: avoid;
+        }
+        @media (max-width: 600px) {
+            .skills { column-count: 1; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <h1>FIRST LAST</h1>
+        <div class="contact">
+            123 Street Name, Town, State 12345 &nbsp;|&nbsp;
+            <a href="tel:+1234567890">(123) 456-7890</a> &nbsp;|&nbsp;
+            <a href="mailto:email@gmail.com">email@gmail.com</a> &nbsp;|&nbsp;
+            <a href="https://linkedin.com/in/username" target="_blank">linkedin.com/in/username</a> &nbsp;|&nbsp;
+            <a href="https://github.com/username" target="_blank">github.com/username</a>
+        </div>
+    </header>
+
+    <!-- ==================== EDUCATION ==================== -->
+    <section>
+        <h2>Education</h2>
+        <h3>Bachelor of Science in Computer Science</h3>
+        <div class="date">Sep. 2017 – May 2021</div>
+        <p><strong>State University</strong> – City, State</p>
+
+        <h4>Relevant Coursework</h4>
+        <ul class="skills">
+            <li>Data Structures</li>
+            <li>Algorithms Analysis</li>
+            <li>Artificial Intelligence</li>
+            <li>Systems Programming</li>
+            <li>Software Methodology</li>
+            <li>Database Management</li>
+            <li>Internet Technology</li>
+            <li>Computer Architecture</li>
+        </ul>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section>
+        <h2>Experience</h2>
+
+        <!-- Electronics Company -->
+        <h3>Software Engineer Intern</h3>
+        <div class="date">May 2020 – August 2020</div>
+        <p><strong>Electronics Company</strong> – City, State</p>
+        <ul>
+            <li>Developed a service to automatically perform a set of unit tests daily on a product in development in order to decrease the needed for team members to identify and fix bugs/issues.</li>
+            <li>Incorporated scripts using Python and PowerShell to aggregate XML test results into an organized format and to load the latest build code onto the hardware, so that daily testing can be performed.</li>
+            <li>Utilized Jenkins to provide a continuous integration service in order to automate the entire process of loading the latest build code and test files, running the tests, and generating a report of the results once per day.</li>
+            <li>Explored ways to visualize and send a daily report of test results to team members using HTML, JavaScript, and CSS.</li>
+        </ul>
+
+        <!-- Startup, Inc -->
+        <h3>Front End Developer Intern</h3>
+        <div class="date">May 2019 – August 2019</div>
+        <p><strong>Startup, Inc</strong> – City, State</p>
+        <ul>
+            <li>Assisted in development of the front end of a mobile application for iOS/Android using Dart and the Flutter framework.</li>
+            <li>Worked with Google Firebase to manage user inputted data across multiple platforms including web and mobile apps.</li>
+            <li>Collaborated with team members using version control systems such as Git to organize modifications and assign tasks.</li>
+            <li>Utilized Android Studio as a development environment in order to visualize the application in both iOS and Android.</li>
+        </ul>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section>
+        <h2>Projects</h2>
+
+        <h3>Gym Reservation Bot | <em>Python, Selenium, Google Cloud Console</em></h3>
+        <div class="date">January 2021</div>
+        <ul>
+            <li>Developed an automatic bot using Python and Google Cloud Console to register myself for a timeslot at my school gym.</li>
+            <li>Implemented Selenium to create an instance of Chrome in order to interact with the correct elements of the web page.</li>
+            <li>Created a Linux virtual machine to run on Google Cloud so that the program is able to run everyday from the cloud.</li>
+            <li>Used Cron to schedule the program to execute automatically at 11 AM every morning so a reservation is made for me.</li>
+        </ul>
+
+        <h3>Ticket Price Calculator App | <em>Java, Android Studio</em></h3>
+        <div class="date">November 2020</div>
+        <ul>
+            <li>Created an Android application using Java and Android Studio to calculate ticket prices for trips to museums in NYC.</li>
+            <li>Processed user inputted information in the back-end of the app to return a subtotal price based on the tickets selected.</li>
+            <li>Utilized the layout editor to create a UI for the application in order to allow different scenes to interact with each other.</li>
+        </ul>
+
+        <h3>Transaction Management GUI | <em>Java, Eclipse, JavaFX</em></h3>
+        <div class="date">October 2020</div>
+        <ul>
+            <li>Designed a simple banking transaction system using Java to simulate the common functions of using a bank account.</li>
+            <li>Used JavaFX to create a GUI that supports practices such as creating an account, deposit, withdraw, list all accounts, etc.</li>
+            <li>Implemented object-oriented programming practices such as inheritance to create different account types and databases.</li>
+        </ul>
+    </section>
+
+    <!-- ==================== TECHNICAL SKILLS ==================== -->
+    <section>
+        <h2>Technical Skills</h2>
+        <p><strong>Languages:</strong> Python, Java, C, HTML/CSS, JavaScript, SQL</p>
+        <p><strong>Developer Tools:</strong> VS Code, Eclipse, Google Cloud Platform, Android Studio</p>
+        <p><strong>Technologies/Frameworks:</strong> Linux, Jenkins, GitHub, JUnit, WordPress</p>
+    </section>
+
+    <!-- ==================== LEADERSHIP ==================== -->
+    <section>
+        <h2>Leadership / Extracurricular</h2>
+        <h3>Fraternity</h3>
+        <div class="date">Spring 2020 – Present</div>
+        <p><strong>President</strong> – University Name</p>
+        <ul>
+            <li>Achieved a 4 star fraternity ranking by the Office of Fraternity and Sorority Affairs (highest possible ranking).</li>
+            <li>Managed executive board of 5 members and ran weekly meetings to oversee progress in essential parts of the chapter.</li>
+            <li>Led chapter of 30+ members to work towards goals that improve and promote community service, academics, and unity.</li>
+        </ul>
+    </section>
+
+</div>
+</body>
+</html>

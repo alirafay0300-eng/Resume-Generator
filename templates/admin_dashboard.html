@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<h2>Admin Dashboard</h2>
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Txn ID</th>
+        <th>Screenshot</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for pay in payments %}
+    <tr>
+        <td>{{ pay.name }}</td>
+        <td>{{ pay.amount }}</td>
+        <td>{{ pay.txn_id }}</td>
+        <td>
+            {% if pay.screenshot %}
+            <a href="{{ url_for('static', filename='uploads/' + pay.screenshot) }}" target="_blank">View</a>
+            {% else %}
+            N/A
+            {% endif %}
+        </td>
+        <td>{{ pay.status }}</td>
+        <td>
+            {% if pay.status == 'Pending' %}
+            <a href="{{ url_for('update_payment', payment_id=pay.id, action='verify') }}">Verify</a> |
+            <a href="{{ url_for('update_payment', payment_id=pay.id, action='reject') }}">Reject</a>
+            {% else %}
+            -
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

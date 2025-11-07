@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Payment</h1>
+    <p>Please complete your payment to download your resume.</p>
+
+    <form action="/payment_submit" method="POST" enctype="multipart/form-data">
+        <label for="name">Full Name:</label>
+        <input type="text" name="name" id="name" placeholder="Your full name" required>
+
+        <label for="amount">Amount (PKR):</label>
+        <input type="text" name="amount" id="amount" placeholder="Enter amount" required>
+
+        <label for="txn_id">Transaction ID:</label>
+        <input type="text" name="txn_id" id="txn_id" placeholder="Easypaisa / JazzCash txn ID" required>
+
+        <label for="screenshot">Upload Payment Screenshot:</label>
+        <input type="file" name="screenshot" id="screenshot" accept="image/*" required>
+
+        <button type="submit">Submit Payment</button>
+    </form>
+
+    <p style="margin-top:20px; font-size:0.9rem; color:#555;">
+        After submitting your payment, your transaction will be verified. Once verified, you can download your resume.
+    </p>
+</div>
+</body>
+</html>

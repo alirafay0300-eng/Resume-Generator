@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Enter Your Information</h1>
+
+<form action="/submit" method="POST" id="resumeForm">
+
+    <!-- =============================
+         BASIC INFO
+    ============================== -->
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+
+    <!-- =============================
+         EDUCATION SECTION
+    ============================== -->
+    <h2>Education</h2>
+    <div id="education-section">
+        <div class="section-group">
+            <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+            <label>Degree / Qualification:</label>
+            <input type="text" name="education[]" placeholder="e.g. BS Computer Science, 2023" required>
+
+            <label>University:</label>
+            <input type="text" name="university[]" placeholder="e.g. University of the Punjab" required>
+        </div>
+    </div>
+    <button type="button" class="add-btn" onclick="addEducation()">+ Add More Education</button>
+
+
+    <!-- =============================
+         EXPERIENCE SECTION
+    ============================== -->
+    <h2>Experience</h2>
+    <div id="experience-section">
+        <div class="section-group">
+            <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+            <label>Job Title:</label>
+            <input type="text" name="job[]" required>
+
+            <label>Company:</label>
+            <input type="text" name="company[]" required>
+
+            <label>Time Period:</label><br>
+            <input type="date" name="start[]" class="inline" required>
+            to
+            <input type="date" name="end[]" class="inline end-date" required>
+            <label class="inline">
+                <input type="checkbox" name="continued[]" class="continued-checkbox"> Currently Working Here
+            </label>
+
+            <label>Description:</label>
+            <textarea name="desc[]" rows="2" placeholder="Describe your role and responsibilities..."></textarea>
+        </div>
+    </div>
+    <button type="button" class="add-btn" id="addExperienceBtn" onclick="addExperience()">+ Add More Experience</button>
+
+
+    <!-- =============================
+         PROJECTS SECTION
+    ============================== -->
+    <h2>Projects</h2>
+    <div id="project-section">
+        <div class="section-group">
+            <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+            <label>Project Title:</label>
+            <input type="text" name="project_title[]" placeholder="e.g. AI Chatbot for Customer Support">
+
+            <label>Project Details:</label>
+            <textarea name="project_detail[]" rows="2" placeholder="Describe the project briefly..."></textarea>
+        </div>
+    </div>
+    <button type="button" class="add-btn" onclick="addProject()">+ Add More Projects</button>
+
+
+    <!-- =============================
+         TECHNICAL SKILLS SECTION
+    ============================== -->
+    <h2>Technical Skills</h2>
+    <div id="skills-section">
+        <div class="section-group">
+            <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+            <input type="text" name="skills[]" placeholder="e.g. Python, Flask, HTML, CSS, MySQL">
+        </div>
+    </div>
+    <button type="button" class="add-btn" onclick="addSkill()">+ Add More Skills</button>
+
+    <br><br>
+    <button type="submit">Generate Resume</button>
+</form>
+</div>
+
+<script>
+function removeSection(el) 
+    {
+    el.parentElement.remove();
+}
+
+function addEducation() {
+    const container = document.getElementById('education-section');
+    const div = document.createElement('div');
+    div.classList.add('section-group');
+    div.innerHTML = `
+        <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+        <label>Degree / Qualification:</label>
+        <input type="text" name="education[]" placeholder="e.g. MSc Artificial Intelligence, 2025">
+        <label>University:</label>
+        <input type="text" name="university[]" placeholder="e.g. COMSATS University Islamabad">
+    `;
+    container.appendChild(div);
+}
+
+function addExperience() {
+    const container = document.getElementById('experience-section');
+    const div = document.createElement('div');
+    div.classList.add('section-group');
+    div.innerHTML = `
+        <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+        <label>Job Title:</label>
+        <input type="text" name="job[]">
+
+        <label>Company:</label>
+        <input type="text" name="company[]">
+
+        <label>Time Period:</label><br>
+        <input type="date" name="start[]" class="inline">
+        to
+        <input type="date" name="end[]" class="inline end-date">
+        <label class="inline">
+            <input type="checkbox" name="continued[]" class="continued-checkbox"> Currently Working Here
+        </label>
+
+        <label>Description:</label>
+        <textarea name="desc[]" rows="2"></textarea>
+    `;
+    container.appendChild(div);
+    attachCheckboxHandler(div.querySelector('.continued-checkbox'));
+}
+
+function addProject() {
+    const container = document.getElementById('project-section');
+    const div = document.createElement('div');
+    div.classList.add('section-group');
+    div.innerHTML = `
+        <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+        <label>Project Title:</label>
+        <input type="text" name="project_title[]" placeholder="e.g. Portfolio Website">
+        <label>Project Details:</label>
+        <textarea name="project_detail[]" rows="2" placeholder="Describe the project..."></textarea>
+    `;
+    container.appendChild(div);
+}
+
+function addSkill() {
+    const container = document.getElementById('skills-section');
+    const div = document.createElement('div');
+    div.classList.add('section-group');
+    div.innerHTML = `
+        <span class="remove-icon" onclick="removeSection(this)">&#10006;</span>
+        <input type="text" name="skills[]" placeholder="e.g. React, SQL, Docker">
+    `;
+    container.appendChild(div);
+}
+
+function attachCheckboxHandler(checkbox) {
+    checkbox.addEventListener('change', function() {
+        const endDateInput = this.closest('.section-group').querySelector('.end-date');
+        const addBtn = document.getElementById('addExperienceBtn');
+
+        if (this.checked) {
+            endDateInput.disabled = true;
+            endDateInput.value = '';
+            addBtn.disabled = true;
+            addBtn.style.opacity = "0.5";
+            addBtn.style.cursor = "not-allowed";
+        } else {
+            endDateInput.disabled = false;
+            addBtn.disabled = false;
+            addBtn.style.opacity = "1";
+            addBtn.style.cursor = "pointer";
+        }
+    });
+}
+document.querySelectorAll('.continued-checkbox').forEach(attachCheckboxHandler);
+</script>
+</body>
+</html>
