@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 #this is a change 
 # ==============================
 # App Config
+#this is a change
 # ==============================
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
