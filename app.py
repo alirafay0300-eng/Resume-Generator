@@ -5,6 +5,7 @@ import io
 import os
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 #this is a change 
 # ==============================
 # App Config
@@ -17,6 +18,8 @@ app.secret_key = "your_secret_key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///payments.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 # Upload folder
 UPLOAD_FOLDER = 'static/uploads'
@@ -36,6 +39,8 @@ class Payment(db.Model):
     amount = db.Column(db.Float, nullable=False)
     screenshot = db.Column(db.String(200))  # filename
     status = db.Column(db.String(20), default='Pending')  # Pending / Verified
+    payment_status = db.Column(db.String(20), default="pending")  # can be 'pending', 'approved', 'rejected'
+
 
 # ✅ Create tables inside application context
 with app.app_context():
@@ -55,9 +60,8 @@ user_resume_data = {}
 def form():
     return render_template('form.html')
 @app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['POST'])
 def submit():
-    global user_resume_data
-
     # Collect data (education, experience, projects, skills)
     educations = [
         (edu, uni)
@@ -93,6 +97,7 @@ def submit():
     skills = [s for s in request.form.getlist('skills[]') if s.strip()]
 
     # Store resume data globally
+    global user_resume_data
     user_resume_data = {
         'name': request.form.get('name', ''),
         'address': request.form.get('address', ''),
@@ -104,10 +109,8 @@ def submit():
         'skills': skills
     }
 
-    # Store name in session to link payment
-    session['user_name'] = request.form.get('name', '')
 
-    # ✅ Render resume page immediately
+    session['user_name'] = request.form.get('name', '')
     return render_template('resume.html', **user_resume_data)
 
 
@@ -185,10 +188,15 @@ def download_pdf():
     # ✅ Check payment approval
     # You can store the user's name or ID in session when they submit payment
     name = session.get('user_name')
-    payment = Payment.query.filter_by(name=name, status='Verified').first()
+    payment = Payment.query.filter_by(name=name).first()  # Any payment
 
     if not payment:
-        return render_template('payment_wait.html')  # Not approved yet
+        # No payment submitted yet → ask to pay
+        return redirect(url_for('payment_page'))
+
+    if payment.status != "Verified":
+        # Payment submitted but not verified
+        return render_template('payment_wait.html')
 
     # Generate PDF
     rendered = render_template('resume.html', **user_resume_data)
@@ -223,19 +231,23 @@ def admin_dashboard():
     payments = Payment.query.all()
     return render_template('admin_dashboard.html', payments=payments)
 
-@app.route('/update_payment/<int:payment_id>/<string:action>')
+@app.route('/update_payment/<int:payment_id>/<string:action>', methods=['GET', 'POST'])
 def update_payment(payment_id, action):
     if not session.get('admin'):
         return redirect(url_for('admin_login'))
-    payment = Payment.query.get(payment_id)
+    payment = Payment.query.get_or_404(payment_id)
     if action == "verify":
         payment.status = "Verified"
+        payment.payment_status = "approved"
     elif action == "reject":
         payment.status = "Rejected"
+        payment.payment_status = "rejected"
     db.session.commit()
+    flash("Payment updated successfully!")
     return redirect(url_for('admin_dashboard'))
 
-@app.route('/payment_submit', methods=['POST'])
+
+@app.route('/payment_submit', methods=['POST''GET'])
 def payment_submit():
     name = request.form.get('name')
     txn_id = request.form.get('txn_id')
@@ -263,6 +275,45 @@ def payment_page():
         return redirect(url_for('form'))
     return render_template('payment.html', name=session['user_name'])
 
+@app.route("/approve/<int:payment_id>")
+def approve_payment(payment_id):
+    if not session.get('admin'):
+        return redirect(url_for('admin_login'))
+    payment = Payment.query.get_or_404(payment_id)
+    payment.status = "Verified"
+    payment.payment_status = "approved"
+    db.session.commit()
+    flash("Payment approved!")
+    return redirect(url_for("admin_dashboard"))
+
+
+
+@app.route("/waiting")
+def waiting():
+    return render_template("waiting.html")
+@app.route("/thank_you/<int:user_id>")
+
+
+@app.route("/check_status/<int:payment_id>")
+def check_status(payment_id):
+    payment = Payment.query.get_or_404(payment_id)
+    if payment.payment_status == "approved":
+        return redirect(url_for("thank_you", payment_id=payment.id))
+    else:
+        return render_template("waiting.html")
+
+@app.route("/thank_you/<int:payment_id>")
+def thank_you(payment_id):
+    payment = Payment.query.get_or_404(payment_id)
+    return render_template("thank_you.html", payment=payment)
+
+@app.route("/download_pdf_user/<int:payment_id>")
+def download_pdf_user(payment_id):
+    payment = Payment.query.get_or_404(payment_id)
+    if payment.payment_status != "approved":
+        flash("Payment not approved yet!")
+        return redirect(url_for("waiting"))
+    return send_file("path/to/file.pdf", as_attachment=True)
 
 # ==============================
 # Run App

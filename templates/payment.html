@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <h1>Payment</h1>
     <p>Please complete your payment to download your resume.</p>
 
-    <form action="/payment_submit" method="POST" enctype="multipart/form-data">
+    <form action="/payment_submit" method="POST,GET" enctype="multipart/form-data">
         <label for="name">Full Name:</label>
         <input type="text" name="name" id="name" placeholder="Your full name" required>
 
@@ -31,5 +31,47 @@
         After submitting your payment, your transaction will be verified. Once verified, you can download your resume.
     </p>
 </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Page</h1>
+        <p>Hello, <strong>{{ name }}</strong>. Please submit your payment details below.</p>
+
+        <!-- Payment Form -->
+        <form action="{{ url_for('payment_submit') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" value="{{ name }}" readonly required>
+            </div>
+
+            <div class="form-group">
+                <label for="txn_id">Transaction ID</label>
+                <input type="text" id="txn_id" name="txn_id" placeholder="Enter transaction ID" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount Paid</label>
+                <input type="number" step="0.01" id="amount" name="amount" placeholder="Enter amount" required>
+            </div>
+
+            <div class="form-group">
+                <label for="screenshot">Upload Payment Screenshot</label>
+                <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
+            </div>
+
+            <button type="submit">Submit Payment</button>
+        </form>
+
+        <p>After submitting, please wait for admin verification.</p>
+    </div>
 </body>
 </html>

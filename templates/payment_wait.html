@@ -13,6 +13,15 @@
     <p>Please wait for the admin to verify your transaction. Once verified, you will be able to download your resume.</p>
 
     <a href="/"><button>Go Back to Resume Form</button></a>
+    <h2>Your payment is being verified...</h2>
+<p>Please wait until the admin approves your payment.</p>
+<meta http-equiv="refresh" content="10"> <!-- refresh every 10s to check -->
+<script>
+setInterval(() => {
+  window.location.reload();
+}, 10000);
+</script>
+
 </div>
 </body>
 </html>
