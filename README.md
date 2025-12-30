@@ -86,8 +86,8 @@ resume-generator/
 ## 🧑‍💻 Author
 
 **Ali Rafay Bhatti**
-📧 Email: [your email here]
-💼 LinkedIn: [your LinkedIn profile link]
+📧 Email: [alirafay0300@gmail.com]
+💼 LinkedIn: [(https://www.linkedin.com/in/ali-rafay-bhatti-79a679284/)]
 🐍 Passionate about Python, AI, and Full-Stack Development.
 
 ---
